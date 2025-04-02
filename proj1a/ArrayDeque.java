@@ -21,8 +21,8 @@ public class ArrayDeque<T> {
     //循环需要用到+size/size的方法
     public void resize(int newcapacity){
         T[] newItems = (T[]) new Object[newcapacity];
-        for(int i=0; i<size; i++){
-            newItems[i]=items[(frontPtr+i+1)%size];
+        for(int i=0; i<capacity; i++){
+            newItems[i]=items[(frontPtr+i+1)%capacity];
         }
         items = newItems;
         frontPtr = 0;

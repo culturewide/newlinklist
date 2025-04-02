@@ -1,82 +1,109 @@
 public class ArrayDeque<T> {
-    public int size;
-    public int frontPtr;
-    public int rearPtr;
-    public T[] items;
-    public int capacity;
-    public ArrayDeque () {
-        items = (T[]) new Object[8];
-        size=0;
-        frontPtr = 0;
-        rearPtr = 1;
-        capacity=8;
+    private T[] array;
+    private int size;
+    private int frontPtr;
+    private int backPtr;
+    private int capacity;
+    public ArrayDeque() {
+        array = (T[]) new Object[8];
+        capacity = 8;
+        frontPtr = 0; // the first item
+        backPtr = 0; // one index after the last item
+        size = 0;
     }
-    public void update(){
-        if(size==capacity){
-            resize(capacity*2);
-        }else if(size>0&&capacity>=16&&size*4<capacity){
-            resize(Math.max(capacity/2,16));
-        }
-    }
-    //循环需要用到+size/size的方法
-    public void resize(int newcapacity){
-        T[] newItems = (T[]) new Object[newcapacity];
-        for(int i=0; i<capacity; i++){
-            newItems[i]=items[(frontPtr+i+1)%capacity];
-        }
-        items = newItems;
-        frontPtr = 0;
-        rearPtr =size;
-        capacity=newcapacity;
-    }
-    public void addFirst(T num) {
-        update();
-        items[frontPtr]=num;
-        size++;
-        frontPtr = (frontPtr-1+capacity)%capacity;
+//    public ArrayDeque(T item) {
+//        array = (T[]) new Object[8];
+//        capacity = 8;
+//        array[0] = item;
+//        size = 1;
+//        frontPtr = 0;
+//        backPtr = 1;
+//    }
+
+    private boolean isFull() {
+        return (backPtr) % capacity == frontPtr && size == capacity;
     }
     public boolean isEmpty() {
-        return size==0;
+        return size == 0;
     }
-    public int size() {
-        return size;
-    }
-    public void addLast(T item){
-        update();
-        items[rearPtr]=item;
-        size++;
-        rearPtr = (rearPtr+1+capacity)%capacity;
-    }
-    public T removeFirst() {
-        if(size==0){
-            return null;
+    private void update() {
+        if (isFull()) {
+            // 扩容逻辑
+            resize(capacity * 2);  // 扩展为当前容量的两倍
+        } else if (size > 0 && size * 4 < capacity && capacity >= 16) {
+            // 缩小容量逻辑
+            resize((Math.max(capacity / 2, 16)));  // 缩小为当前容量的一半，但不低于最小容量
         }
-        T x=items[frontPtr+1];
-        frontPtr = (frontPtr+1+capacity)%capacity;
+    }
+
+    private void resize(int newCapacity) {
+        T[] newArray = (T[]) new Object[newCapacity];
+        int index = frontPtr;
+        for (int i = 0; i < size; i++) {
+            newArray[i] = array[index];
+            index = (index + 1) % capacity;
+        }
+        frontPtr = 0;
+        backPtr = size;  // backPtr 是 size 之后的位置
+        array = newArray;
+        capacity = newCapacity;
+    }
+
+
+    public void addFirst(T item) {
+        update();
+        frontPtr = (frontPtr - 1 + capacity) % capacity;
+        array[frontPtr] = item;
+        size++;
+    }
+    public void addLast(T item) {
+        update();
+        array[backPtr] = item;
+        backPtr = (backPtr + 1) % capacity;
+        size++;
+    }
+
+    public int size() {
+        if (size < 0) {
+            return 0;
+        } else {
+            return size;
+        }
+    }
+
+    public void printDeque() {
+        int index = frontPtr;
+        while (index != backPtr) {
+            System.out.print(array[index]);
+            System.out.print(" ");
+            index = (index + 1) % capacity;
+        }
+        System.out.println();
+    }
+
+    public T removeFirst() {
+        T item = array[frontPtr];
+        frontPtr = (frontPtr + 1) % capacity;
         size--;
         update();
-        return x;
+        return item;
     }
     public T removeLast() {
-        if(size==0){
-            return null;
-        }
-        T x=items[rearPtr-1];
-        rearPtr = (rearPtr-1+capacity)%capacity;
+        backPtr = (backPtr - 1 + capacity) % capacity;
+        T item = array[backPtr];
         size--;
         update();
-        return x;
+        return item;
     }
+
     public T get(int index) {
-        if(index>=size)
-            return null;
-        return items[(frontPtr+index+1)%capacity];
-
-    }
-    public void printDeque() {
-        for(int i=0; i<size; i++) {
-            System.out.print(items[(i+frontPtr+1)%capacity]+" ");
+        if (index < 0 || index >= size) {
+            return null; // 或者抛出 IllegalArgumentException
         }
-
+        int i = frontPtr;
+        for (int j = 0; j < index; j++) {
+            i = (i + 1) % capacity;
+        }
+        return array[i];
     }
 }

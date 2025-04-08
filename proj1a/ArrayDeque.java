@@ -22,8 +22,9 @@ public class ArrayDeque<T> {
     public void resize(int newcapacity){
         T[] newItems = (T[]) new Object[newcapacity];
         for(int i=0; i<capacity; i++){
+
             newItems[i]=items[(frontPtr)%capacity];
-            frontPtr=(frontPtr+1)%capacity;
+            frontPtr=(frontPtr+1+capacity)%capacity;
         }
         items = newItems;
         frontPtr = 0;

@@ -21,10 +21,10 @@ public class ArrayDeque<T> {
     //循环需要用到+size/size的方法
     public void resize(int newcapacity){
         T[] newItems = (T[]) new Object[newcapacity];
-        for(int i=0; i<capacity; i++){
-
-            newItems[i]=items[(frontPtr)%capacity];
-            frontPtr=(frontPtr+1+capacity)%capacity;
+        int current = frontPtr;
+        for (int i = 0; i < size; i++) {
+            newItems[i] = items[current];
+            current = (current + 1) % capacity;
         }
         items = newItems;
         frontPtr = 0;
@@ -81,7 +81,7 @@ public class ArrayDeque<T> {
         }
 
     }
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         ArrayDeque <Integer>a=new ArrayDeque();
         a.addLast(0);
         a.addLast(1);
@@ -93,5 +93,5 @@ public class ArrayDeque<T> {
         a.addLast(7);
         a.addLast(8);
         System.out.println(a.get(0));
-    }
+    }*/
 }

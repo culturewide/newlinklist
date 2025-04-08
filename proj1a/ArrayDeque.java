@@ -62,7 +62,7 @@ public class ArrayDeque<T> {
         if(size==0){
             return null;
         }
-        T x=items[rearPtr-1];
+        T x=items[rearPtr-1+capacity];
         rearPtr = (rearPtr-1+capacity)%capacity;
         size--;
         update();

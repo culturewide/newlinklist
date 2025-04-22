@@ -43,7 +43,7 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue <T>  {
        @Override
        public T next() {
            T item=(T)rb[wizpos];
-           wizpos+=(wizpos+1)%rb.length;
+           wizpos=(wizpos+1)%rb.length;
            count++;
            return item;
        }
@@ -108,7 +108,7 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue <T>  {
      */
     public T peek() {
         if(isEmpty()) {
-            return null;
+            throw new RuntimeException();
         }
         return rb[first];
         // TODO: Return the first item. None of your instance variables should change.

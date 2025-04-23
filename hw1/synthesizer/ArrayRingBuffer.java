@@ -80,7 +80,7 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue <T>  {
             throw new IllegalStateException("Ring buffer overflow");
         }
         rb[last] = x;
-        last=(last+1+capacity)%capacity;
+        last=(last+1)%capacity;
         fillCount++;
 
 
@@ -97,7 +97,7 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue <T>  {
             throw new IllegalStateException("Ring buffer underflow");
         }
         T x = rb[first];
-        first=(first+1+capacity)%capacity;
+        first=(first+1)%capacity;
         fillCount--;
         return x;
         // TODO: Dequeue the first item. Don't forget to decrease fillCount and update 

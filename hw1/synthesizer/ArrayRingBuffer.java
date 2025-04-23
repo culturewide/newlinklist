@@ -15,7 +15,7 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue <T>  {
     private int last;
     /* Array for storing the buffer data. */
     private T[] rb;
-    private int wizpos;
+
     /**
      * Create a new ArrayRingBuffer with the given capacity.
      */
@@ -32,6 +32,7 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue <T>  {
     }*/
     private class  ArraryRingBufferiterator <T> implements Iterator<T> {
         private int count = 0;
+        private int wizpos;
        public ArraryRingBufferiterator() {
            wizpos = first;
 

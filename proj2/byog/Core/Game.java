@@ -1,7 +1,9 @@
 package byog.Core;
 
+import byog.SaveDemo.World;
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
+import byog.lab5.RandomWorldDemo;
 
 public class Game {
     TERenderer ter = new TERenderer();
@@ -27,24 +29,34 @@ public class Game {
      * @param input the input string to feed to your program
      * @return the 2D TETile[][] representing the state of the world
      */
-    public TETile[][] playWithInputString(String input) {
-        if(input==null || input.equals("")) {
-            return null;
-        }
-        else {
-            char[] chars = input.toCharArray();
-            if(chars[0]=='N') {
-                int StartIndex = 1;
-                int EndIndex = input.indexOf("S");
-                String result = input.substring(StartIndex, EndIndex);
+    public StringBuilder findseed (String S){
+         int index;
+         index = 0;
+         StringBuilder seedBuilder = new StringBuilder();
+         if(S.charAt(0) == 'n'||S.charAt(0) == 'N'){
+             index = 1;
+             if(index < S.length()&& Character.isDigit(S.charAt(index))){
+                 seedBuilder.append(S.charAt(index));
+                 index++;
+             }
+             if(index < S.length()&& S.charAt(index) == 's'||S.charAt(index) == 'S'){
+                 return seedBuilder;
+             }
 
-            }
-        }
+         }
+         return seedBuilder;
+    }
+    public TETile[][] playWithInputString(String input) {
+            StringBuilder sd=findseed(input);
+            long seed = Long.parseLong(sd.toString());
+             World world= new World(WIDTH,HEIGHT,seed);
+             return world.getTiles();
+        //ter.initialize(WIDTH, HEIGHT);
         // TODO: Fill out this method to run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
 
-        TETile[][] finalWorldFrame = null;
-        return finalWorldFrame;
+       // TETile[][] finalWorldFrame = null;
+        //return finalWorldFrame;
     }
 }

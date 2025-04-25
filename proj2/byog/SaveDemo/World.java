@@ -15,7 +15,7 @@ public class World implements Serializable {
     private static final long serialVersionUID = 123123123123123L;
     private List<Square> squares;
     private Random r = new Random();
-    private static long seed;
+    private  long seed;
     TETile[][] randomTiles;
     public World() {
         squares = new ArrayList<Square>();
@@ -33,8 +33,8 @@ public class World implements Serializable {
         squares.add(newSquare);
     }
     public TETile randomTile() {
-        final Random RANDOM = new Random(seed);
-        int tileNum = RANDOM.nextInt(3);
+       // final Random RANDOM = new Random(seed);
+        int tileNum = r.nextInt(3);
         switch (tileNum) {
             case 0: return Tileset.WALL;
             case 1: return Tileset.FLOWER;
@@ -56,6 +56,7 @@ public class World implements Serializable {
     public  World(int width, int height,long seedinput) {
         randomTiles = new TETile[width][height];
         seed = seedinput;
+        this.r = new Random(seed);
         fillFuckingWorld(randomTiles);
     }
     public TETile[][] getTiles() {

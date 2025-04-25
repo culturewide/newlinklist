@@ -35,13 +35,15 @@ public class Game {
          StringBuilder seedBuilder = new StringBuilder();
          if(S.charAt(0) == 'n'||S.charAt(0) == 'N'){
              index = 1;
-             if(index < S.length()&& Character.isDigit(S.charAt(index))){
-                 seedBuilder.append(S.charAt(index));
-                 index++;
+             for( ; index<S.length(); index++){
+                 if( Character.isDigit(S.charAt(index))){
+                     seedBuilder.append(S.charAt(index));
+                 }
+                 if( S.charAt(index) == 's'||S.charAt(index) == 'S'){
+                     return seedBuilder;
+                 }
              }
-             if(index < S.length()&& S.charAt(index) == 's'||S.charAt(index) == 'S'){
-                 return seedBuilder;
-             }
+
 
          }
          return seedBuilder;
@@ -58,5 +60,15 @@ public class Game {
 
        // TETile[][] finalWorldFrame = null;
         //return finalWorldFrame;
+    }
+    public static void main(String[] args) {
+        Game game = new Game();
+        TETile[][] tiles;
+        tiles=game.playWithInputString("n865562189400100566s");
+        tiles=game.playWithInputString("n8272166368955537510s");
+        tiles=game.playWithInputString("n8554565356223690293s");
+        // tiles = game.playWithInputString("n865562189400100566s");
+        game.ter.initialize(WIDTH, HEIGHT);
+        game.ter.renderFrame(tiles);
     }
 }

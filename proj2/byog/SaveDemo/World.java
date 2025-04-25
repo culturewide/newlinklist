@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class World implements Serializable {
     private static final long serialVersionUID = 123123123123123L;
     private List<Square> squares;
-    private Random r = new Random();
+    private Random r ;
     private  long seed;
     TETile[][] randomTiles;
     public World() {

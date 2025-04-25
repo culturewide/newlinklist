@@ -61,7 +61,7 @@ public class Game {
        // TETile[][] finalWorldFrame = null;
         //return finalWorldFrame;
     }
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         Game game = new Game();
         TETile[][] tiles;
         tiles=game.playWithInputString("n865562189400100566s");
@@ -70,5 +70,5 @@ public class Game {
         // tiles = game.playWithInputString("n865562189400100566s");
         game.ter.initialize(WIDTH, HEIGHT);
         game.ter.renderFrame(tiles);
-    }
+    }*/
 }

@@ -58,7 +58,10 @@ public class Percolation {
         return grid[row][col] == 1;
     }
     public boolean isFull(int row, int col){
-        return uf.connected(xyTo1D(row, col), N*N);
+        if(isOpen(row,col)){
+            return uf.connected(xyTo1D(row, col), N*N);
+        }
+        return false;
     }
     public int numberOfOpenSites(){
         return num;
@@ -79,14 +82,14 @@ public class Percolation {
     }
     public static void main(String[] args) {
         Percolation p = new Percolation(5);
-        p.open(2,2);
-        p.open(1,2);
-        p.open(0,2);
-        p.open(3,2);
-        if(p.percolates()){
-            System.out.println("yesohmygod");
-        }else System.out.println("no");
-        if(p.isFull(4,2)){
+        p.open(0,0);
+//        p.open(1,2);
+//        p.open(0,2);
+//        p.open(3,2);
+//        if(p.percolates()){
+//            System.out.println("yesohmygod");
+//        }else System.out.println("no");
+        if(p.isFull(0,2)){
             System.out.println("FUCK");
         }
 

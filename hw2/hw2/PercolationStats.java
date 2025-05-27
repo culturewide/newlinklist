@@ -22,6 +22,7 @@ public class PercolationStats {
             PF = pf;
             x = new double[T];
 //         出问题了   pl = pf.make(N);
+            pl = pf.make(N);
             openSite = 0;
             n = N;
             t = T;
@@ -61,7 +62,7 @@ public class PercolationStats {
 
         }*/
        private void randomOpen(Percolation pl) {
-           pl = PF.make(n);
+//           pl = PF.make(n);
            while (!checkIfPercolate(pl)) {  // 直到系统渗透
                int randomRow = StdRandom.uniform(0, n);
                int randomCol = StdRandom.uniform(0, n);

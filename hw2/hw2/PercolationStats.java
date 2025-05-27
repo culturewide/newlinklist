@@ -10,16 +10,21 @@ public class PercolationStats {
         private int openSite;
         private int trailTime;
         private double u;
+        private double t;
         private double LowEndPoint;
         private double HighEndPoint;
         private PercolationFactory PF;
         private double[] x;
         public PercolationStats(int N, int T,PercolationFactory pf) {
+            if (N <= 0 || T <= 0) {
+                throw new IllegalArgumentException("N and T must be positive");
+            }
             PF = pf;
             x = new double[T];
-            pl = pf.make(N);
+//         出问题了   pl = pf.make(N);
             openSite = 0;
             n = N;
+            t = T;
             trailTime = 0;
             int i = 0;
             while(i < T){
@@ -56,6 +61,7 @@ public class PercolationStats {
 
         }*/
        private void randomOpen(Percolation pl) {
+           pl = PF.make(n);
            while (!checkIfPercolate(pl)) {  // 直到系统渗透
                int randomRow = StdRandom.uniform(0, n);
                int randomCol = StdRandom.uniform(0, n);
@@ -73,8 +79,11 @@ public class PercolationStats {
            resetPercolation();
        }
         private void resetPercolation() {
-            openSite = 0;
-            pl = PF.make(n);
+           if(trailTime<t){
+               openSite = 0;
+               pl = PF.make(n);
+           }
+
         }
         //calculate the mean value of percolate
         public double mean() {
@@ -101,7 +110,7 @@ public class PercolationStats {
         }
         public static void  main(String[] args) {
             PercolationFactory pf = new PercolationFactory();
-            PercolationStats ps = new PercolationStats(400,30,pf);
+            PercolationStats ps = new PercolationStats(20,10,pf);
             System.out.println(ps.LowEndPoint);
             System.out.println(ps.HighEndPoint);
         }

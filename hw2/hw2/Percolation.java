@@ -38,7 +38,11 @@ public class Percolation {
     // open the site (row, col) if it is not open already
     //首先将row，col转换为一个数，
     public void open(int row, int col){
+        if(isOpen(row, col)){
+            return;
+        }
         int total = xyTo1D(row, col);
+
         grid[row][col] = 1;
         num++;
         if(row-1 >=0 && grid[row-1][col] == 1){
@@ -81,15 +85,15 @@ public class Percolation {
         return total;
     }
     public static void main(String[] args) {
-        Percolation p = new Percolation(5);
-        p.open(0,0);
+        Percolation p = new Percolation(1);
+//        p.open(0,0);
 //        p.open(1,2);
 //        p.open(0,2);
 //        p.open(3,2);
 //        if(p.percolates()){
 //            System.out.println("yesohmygod");
 //        }else System.out.println("no");
-        if(p.isFull(0,2)){
+        if(p.percolates()){
             System.out.println("FUCK");
         }
 

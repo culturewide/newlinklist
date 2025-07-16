@@ -59,13 +59,17 @@ public class RadixSort {
         return string.substring(0, i+1);
     }
     private static String addSpace(String ascii, int max) {
-        int length = ascii.length();
-        char holder =  (char) 0;
-        while(length < max){
-            ascii += holder;
-            length++;
+        // 创建一个 StringBuilder 对象，初始内容为原始字符串
+        StringBuilder sb = new StringBuilder(ascii);
+        char holder = (char) 0;
+
+        // 不断追加占位符，直到达到目标长度
+        while (sb.length() < max) {
+            sb.append(holder);
         }
-        return ascii;
+
+        // 最后，一次性生成最终的字符串并返回
+        return sb.toString();
     }
     /**
      * LSD helper method that performs a destructive counting sort the array of

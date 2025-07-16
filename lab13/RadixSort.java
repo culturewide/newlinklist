@@ -53,14 +53,14 @@ public class RadixSort {
     }
     private static String removePadding(String string) {
         int i = string.length() - 1;
-        while(i!= 0 && string.charAt(i) == '_') {
+        while(i!= 0 && string.charAt(i) == (char) 0) {
             i--;
         }
         return string.substring(0, i+1);
     }
     private static String addSpace(String ascii, int max) {
         int length = ascii.length();
-        char holder =  '_';
+        char holder =  (char) 0;
         while(length < max){
             ascii += holder;
             length++;
